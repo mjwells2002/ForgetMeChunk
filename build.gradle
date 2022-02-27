@@ -1,0 +1,67 @@
+plugins {
+    id "fabric-loom" version "0.10-SNAPSHOT"
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url = "https://maven.fabricmc.net/" }
+}
+
+runClient.doFirst {
+
+    args = ['--username', "breadloaf${new Random().nextInt(1000)}"]
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings minecraft.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    //modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+processResources {
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "minecraft_dependency": project.minecraft_dependency,
+                "loader_version": project.loader_version,
+                "mod_name": project.mod_name,
+                "mod_version": project.mod_version,
+                "mod_id": project.mod_id
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 17
+}
+
+java {
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadow]
+    classifier 'shadow-dev'
+}
+
+remapJar {
+    dependsOn shadowJar
+    input.set shadowJar.archiveFile.get()
+}
