@@ -10,12 +10,11 @@
   "license": "unlicense",
   "environment": "client",
   "icon": "icon.png",
-  "s"
   "mixins": [
     "${mod_id}.mixins.json"
   ],
   "contact": {
-    "sources": "https://github.com/mjwells2002/ForgetMeChunk"
+
   },
   "depends": {
     "fabricloader": ">=${loader_version}",
