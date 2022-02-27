@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListenerMixin {
-    @Redirect(method="handleForgetLevelChunk", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/level/lighting/LevelLightEngine;updateSectionStatus(Lnet/minecraft/core/SectionPos;Z)V"))
+    @Redirect(method="lambda$queueLightUpdate$3", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/level/lighting/LevelLightEngine;updateSectionStatus(Lnet/minecraft/core/SectionPos;Z)V"))
     private void injected(LevelLightEngine instance, SectionPos sectionPos, boolean bl) {
 
     }
