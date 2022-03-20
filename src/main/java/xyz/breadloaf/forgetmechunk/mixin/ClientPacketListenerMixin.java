@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPacketListenerMixin {
-    @Redirect(method="method_38546", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/light/LightingProvider;setSectionStatus(Lnet/minecraft/util/math/ChunkSectionPos;Z)V"))
+    @Redirect(method="onUnloadChunk", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/light/LightingProvider;setSectionStatus(Lnet/minecraft/util/math/ChunkSectionPos;Z)V"))
     private void injected(LightingProvider instance, ChunkSectionPos pos, boolean notReady) {
 
     }
