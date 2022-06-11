@@ -1,6 +1,5 @@
 plugins {
     id "fabric-loom" version "0.12-SNAPSHOT"
-    id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -17,7 +16,6 @@ repositories {
 }
 
 runClient.doFirst {
-
     args = ['--username', "breadloaf${new Random().nextInt(1000)}"]
 }
 
@@ -53,14 +51,4 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
     }
-}
-
-shadowJar {
-    configurations = [project.configurations.shadow]
-    classifier 'shadow-dev'
-}
-
-remapJar {
-    dependsOn shadowJar
-    input.set shadowJar.archiveFile.get()
 }
