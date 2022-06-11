@@ -1,6 +1,6 @@
 plugins {
-    id "fabric-loom" version "0.10-SNAPSHOT"
-    id "com.github.johnrengelman.shadow" version "7.0.0"
+    id "fabric-loom" version "0.12-SNAPSHOT"
+    id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -34,7 +34,6 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
                 "minecraft_dependency": project.minecraft_dependency,
-                "loader_version": project.loader_version,
                 "mod_name": project.mod_name,
                 "mod_version": project.mod_version,
                 "mod_id": project.mod_id
